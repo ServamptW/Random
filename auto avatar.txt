@@ -1,0 +1,19 @@
+if game.PlaceId ~= 8737602449 and game.PlaceId ~= 8943844393 then
+    return
+end
+repeat task.wait() until game:IsLoaded()
+repeat task.wait() until game:GetService("Players").LocalPlayer
+repeat task.wait() until game:GetService("Players").LocalPlayer.PlayerGui
+
+local PlayerGui = game:GetService("Players").LocalPlayer.PlayerGui
+
+if PlayerGui:FindFirstChild("PromptWearLastOutfit") then
+    PlayerGui.PromptWearLastOutfit.PromptResult:FireServer(true)
+end
+
+PlayerGui.ChildAdded:Connect(function(child)
+    task.wait(1)
+    if child.Name == "PromptWearLastOutfit" then
+        PlayerGui.PromptWearLastOutfit:WaitForChild("PromptResult"):FireServer(true)
+    end
+end)
